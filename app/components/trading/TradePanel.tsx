@@ -19,8 +19,8 @@ import { ParticleButton } from "@/app/components/ui/particle-button";
 
 interface TradePanelProps {
   market: Market;
-  side: "long" | "short";
-  onSideChange: (side: "long" | "short") => void;
+  side: "yes" | "no";
+  onSideChange: (side: "yes" | "no") => void;
   price: number;
   onPriceChange: (price: number) => void;
   contracts: number;
@@ -109,14 +109,14 @@ export default function TradePanel({
     <Card className="flex flex-col h-full">
       {/* Side toggle */}
       <div className="grid grid-cols-2 p-1.5 border-b border-[var(--border)]">
-        {(["long", "short"] as const).map((s) => (
+        {(["yes", "no"] as const).map((s) => (
           <button
             key={s}
             onClick={() => onSideChange(s)}
             className={cn(
               "py-2.5 text-sm font-bold rounded-md transition-all capitalize cursor-pointer",
               side === s
-                ? s === "long"
+                ? s === "yes"
                   ? "bg-[var(--green)] text-white"
                   : "bg-[var(--red)] text-white"
                 : "text-[var(--muted)] hover:text-[var(--text)]"
@@ -197,12 +197,12 @@ export default function TradePanel({
         <ParticleButton
           onClick={handlePlaceOrder}
           disabled={!user || !!insufficientBalance || contracts < 1}
-          particleColor={side === "long" ? "#2aad6e" : "#c0392b"}
-          variant={side === "long" ? "green" : "red"}
+          particleColor={side === "yes" ? "#2aad6e" : "#c0392b"}
+          variant={side === "yes" ? "green" : "red"}
           size="lg"
           className="w-full py-3.5 font-bold text-base"
         >
-          {side === "long" ? "Long" : "Short"} {contracts} @ {formatNumber(price, market.decimals)}{" "}
+          {side === "yes" ? "Yes" : "No"} {contracts} @ {formatNumber(price, market.decimals)}{" "}
           {market.unit}
         </ParticleButton>
 

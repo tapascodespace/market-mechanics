@@ -13,19 +13,19 @@
 
 /** Calculate unrealized P&L for a position */
 export function calculatePnl(
-  side: "long" | "short",
+  side: "long" | "short" | "yes" | "no",
   entryPrice: number,
   currentPrice: number,
   contracts: number,
   multiplier: number
 ): number {
   const diff = currentPrice - entryPrice;
-  return (side === "long" ? diff : -diff) * contracts * multiplier;
+  return (side === "long" || side === "yes" ? diff : -diff) * contracts * multiplier;
 }
 
 /** Calculate P&L at settlement */
 export function calculateSettlementPnl(
-  side: "long" | "short",
+  side: "long" | "short" | "yes" | "no",
   entryPrice: number,
   outcomeValue: number,
   contracts: number,
@@ -87,7 +87,7 @@ export function shouldLiquidate(
 
 /** Calculate liquidation price for a position */
 export function calculateLiquidationPrice(
-  side: "long" | "short",
+  side: "long" | "short" | "yes" | "no",
   entryPrice: number,
   initialMargin: number,
   contracts: number,
@@ -99,7 +99,7 @@ export function calculateLiquidationPrice(
   const maxLoss = initialMargin - maintenanceMargin;
   const priceMove = maxLoss / (contracts * multiplier);
 
-  return side === "long"
+  return side === "long" || side === "yes"
     ? entryPrice - priceMove
     : entryPrice + priceMove;
 }
@@ -110,14 +110,14 @@ export function calculateLiquidationPrice(
 //  loss between counterparties."
 
 export function calculateVariationMargin(
-  side: "long" | "short",
+  side: "long" | "short" | "yes" | "no",
   previousPrice: number,
   currentPrice: number,
   contracts: number,
   multiplier: number
 ): number {
   const diff = currentPrice - previousPrice;
-  return (side === "long" ? diff : -diff) * contracts * multiplier;
+  return (side === "long" || side === "yes" ? diff : -diff) * contracts * multiplier;
 }
 
 // ── Fee Calculation ──
@@ -133,7 +133,7 @@ export function calculateFee(
 // ── Payoff Curve for Visualization ──
 
 export function calculatePayoffCurve(
-  side: "long" | "short",
+  side: "long" | "short" | "yes" | "no",
   entryPrice: number,
   contracts: number,
   multiplier: number,

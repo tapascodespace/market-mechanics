@@ -64,8 +64,8 @@ export default function PositionSummary({ market }: { market: Market }) {
                     <span
                       className="text-xs font-bold uppercase px-2 py-0.5 rounded"
                       style={{
-                        background: pos.side === "long" ? "rgba(42,173,110,0.15)" : "rgba(192,57,43,0.15)",
-                        color: pos.side === "long" ? "var(--green)" : "var(--red)",
+                        background: pos.side === "yes" ? "rgba(42,173,110,0.15)" : "rgba(192,57,43,0.15)",
+                        color: pos.side === "yes" ? "var(--green)" : "var(--red)",
                       }}
                     >
                       {pos.side}

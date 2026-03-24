@@ -10,7 +10,7 @@ interface PayoffCurveProps {
   market: Market;
   entryPrice: number;
   contracts: number;
-  side: "long" | "short";
+  side: "yes" | "no";
 }
 
 export default function PayoffCurve({ market, entryPrice, contracts, side }: PayoffCurveProps) {
@@ -56,8 +56,8 @@ export default function PayoffCurve({ market, entryPrice, contracts, side }: Pay
         <span
           className="text-xs font-bold uppercase px-2 py-0.5 rounded"
           style={{
-            background: side === "long" ? "rgba(42,173,110,0.15)" : "rgba(192,57,43,0.15)",
-            color: side === "long" ? "var(--green)" : "var(--red)",
+            background: side === "yes" ? "rgba(42,173,110,0.15)" : "rgba(192,57,43,0.15)",
+            color: side === "yes" ? "var(--green)" : "var(--red)",
           }}
         >
           {side}
@@ -137,7 +137,7 @@ export default function PayoffCurve({ market, entryPrice, contracts, side }: Pay
         </svg>
       </div>
       <div className="px-4 pb-3 text-[11px] text-[var(--muted)] text-center font-mono">
-        P&L = ({side === "long" ? "V − P" : "P − V"}) × {contracts} × {market.notionalMultiplier}
+        P&L = ({side === "yes" ? "V − P" : "P − V"}) × {contracts} × {market.notionalMultiplier}
       </div>
     </Card>
   );

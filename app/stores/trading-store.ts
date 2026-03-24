@@ -17,7 +17,7 @@ interface TradingState {
     order: {
       marketId: string;
       marketName: string;
-      side: "long" | "short";
+      side: "yes" | "no";
       price: number;
       contracts: number;
     },
@@ -55,10 +55,9 @@ export const useTradingStore = create<TradingState>()(
           marketId: orderData.marketId,
           marketName: orderData.marketName,
           side: orderData.side,
-          price: orderData.price,
-          contracts: orderData.contracts,
-          notionalValue,
-          marginRequired,
+          stake: marginRequired,
+          payout: notionalValue,
+          probability: orderData.price * 100,
           status: "filled",
           createdAt: new Date().toISOString(),
           filledAt: new Date().toISOString(),
@@ -76,12 +75,16 @@ export const useTradingStore = create<TradingState>()(
           marketId: orderData.marketId,
           marketName: orderData.marketName,
           side: orderData.side,
+          stake: marginRequired,
+          potentialPayout: notionalValue,
+          entryProbability: orderData.price * 100,
+          currentProbability: orderData.price * 100,
+          unrealizedPnl: 0,
           entryPrice: orderData.price,
           contracts: orderData.contracts,
           notionalValue,
           initialMargin: marginRequired,
           maintenanceMargin,
-          unrealizedPnl: 0,
           marginRatio: 1,
           openedAt: new Date().toISOString(),
         };

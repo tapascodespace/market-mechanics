@@ -13,7 +13,7 @@ export function generateRecentTrades(market: Market, count: number = 20): Trade[
       marketId: market.id,
       price: parseFloat((market.currentPrice + offset).toFixed(market.decimals)),
       contracts: Math.round(1 + Math.random() * 50),
-      side: Math.random() > 0.5 ? "long" : "short",
+      side: Math.random() > 0.5 ? "yes" : "no",
       timestamp: new Date(now - i * (5000 + Math.random() * 30000)).toISOString(),
     });
   }
@@ -28,7 +28,7 @@ export function generateSingleTrade(market: Market): Trade {
     marketId: market.id,
     price: parseFloat((market.currentPrice + offset).toFixed(market.decimals)),
     contracts: Math.round(1 + Math.random() * 30),
-    side: Math.random() > 0.5 ? "long" : "short",
+    side: Math.random() > 0.5 ? "yes" : "no",
     timestamp: new Date().toISOString(),
   };
 }

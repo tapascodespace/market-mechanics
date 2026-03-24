@@ -62,7 +62,7 @@ export default function PositionsTable() {
                   <span
                     className="capitalize font-medium"
                     style={{
-                      color: pos.side === "long" ? "var(--green)" : "var(--red)",
+                      color: pos.side === "yes" ? "var(--green)" : "var(--red)",
                     }}
                   >
                     {pos.side}

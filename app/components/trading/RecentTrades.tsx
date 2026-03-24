@@ -33,7 +33,7 @@ export default function RecentTrades({ trades, decimals, unit }: RecentTradesPro
                   {formatTimeAgo(trade.timestamp)}
                 </td>
                 <td className="py-1.5 px-4 font-mono tabular-nums" style={{
-                  color: trade.side === "long" ? "var(--green)" : "var(--red)",
+                  color: trade.side === "yes" ? "var(--green)" : "var(--red)",
                 }}>
                   {formatNumber(trade.price, decimals)}
                 </td>
@@ -44,11 +44,11 @@ export default function RecentTrades({ trades, decimals, unit }: RecentTradesPro
                   <span
                     className="text-[10px] font-bold uppercase inline-block w-5 text-center py-0.5 rounded"
                     style={{
-                      background: trade.side === "long" ? "rgba(42,173,110,0.12)" : "rgba(192,57,43,0.12)",
-                      color: trade.side === "long" ? "var(--green)" : "var(--red)",
+                      background: trade.side === "yes" ? "rgba(42,173,110,0.12)" : "rgba(192,57,43,0.12)",
+                      color: trade.side === "yes" ? "var(--green)" : "var(--red)",
                     }}
                   >
-                    {trade.side === "long" ? "B" : "S"}
+                    {trade.side === "yes" ? "B" : "S"}
                   </span>
                 </td>
               </tr>
