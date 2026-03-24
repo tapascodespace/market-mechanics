@@ -12,11 +12,11 @@ interface RecentTradesProps {
 
 export default function RecentTrades({ trades, decimals, unit }: RecentTradesProps) {
   return (
-    <Card>
+    <Card className="flex flex-col">
       <div className="px-4 py-3 border-b border-[var(--border)]">
         <span className="text-sm font-medium">Recent Trades</span>
       </div>
-      <div className="overflow-y-auto max-h-48">
+      <div className="overflow-y-auto max-h-[340px]">
         <table className="w-full text-xs">
           <thead className="sticky top-0 bg-[var(--surface)] z-10">
             <tr className="text-[var(--muted)] border-b border-[var(--border)]">
@@ -27,7 +27,7 @@ export default function RecentTrades({ trades, decimals, unit }: RecentTradesPro
             </tr>
           </thead>
           <tbody>
-            {trades.slice(0, 15).map((trade) => (
+            {trades.slice(0, 20).map((trade) => (
               <tr key={trade.id} className="border-b border-[var(--border)]/20 hover:bg-[var(--surface2)]/50 transition-colors">
                 <td className="py-1.5 px-4 text-[var(--muted)] font-mono tabular-nums">
                   {formatTimeAgo(trade.timestamp)}

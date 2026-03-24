@@ -3,7 +3,7 @@
 import { useTradingStore } from "@/app/stores/trading-store";
 import { useAuthStore } from "@/app/stores/auth-store";
 import Card from "@/app/components/ui/Card";
-import Button from "@/app/components/ui/Button";
+import { ParticleButton } from "@/app/components/ui/particle-button";
 import { formatCurrency } from "@/app/lib/format";
 import Link from "next/link";
 
@@ -53,7 +53,7 @@ export default function PositionsTable() {
                 <td className="py-2.5 px-4">
                   <Link
                     href={`/markets/${pos.marketId}`}
-                    className="hover:text-[var(--amber)] transition-colors"
+                    className="hover:text-[var(--accent)] transition-colors"
                   >
                     {pos.marketName}
                   </Link>
@@ -95,14 +95,12 @@ export default function PositionsTable() {
                   {formatCurrency(Math.round(pos.unrealizedPnl))}
                 </td>
                 <td className="py-2.5 px-4 text-right">
-                  <Button
-                    variant="danger"
+                  <ParticleButton
+                    variant="destructive"
                     size="sm"
+                    particleColor="#c0392b"
                     onClick={() => {
-                      // closePosition now needs market — but in portfolio we don't have it
-                      // For portfolio, we do a simplified close: return margin + pnl
                       const returnAmount = Math.max(0, pos.initialMargin + pos.unrealizedPnl);
-                      useTradingStore.getState().positions = useTradingStore.getState().positions.filter((p) => p.id !== pos.id);
                       useTradingStore.setState({
                         positions: useTradingStore.getState().positions.filter((p) => p.id !== pos.id),
                       });
@@ -113,7 +111,7 @@ export default function PositionsTable() {
                     }}
                   >
                     Close
-                  </Button>
+                  </ParticleButton>
                 </td>
               </tr>
             ))}

@@ -16,7 +16,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           "inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer",
           {
-            "bg-[var(--amber)] text-black hover:brightness-110": variant === "primary",
+            "bg-[var(--accent)] text-white hover:brightness-110": variant === "primary",
             "bg-[var(--surface2)] text-[var(--text)] border border-[var(--border)] hover:border-[var(--border2)]":
               variant === "secondary",
             "bg-[var(--red)] text-white hover:brightness-110": variant === "danger",

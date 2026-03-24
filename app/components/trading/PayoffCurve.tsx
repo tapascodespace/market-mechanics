@@ -92,7 +92,7 @@ export default function PayoffCurve({ market, entryPrice, contracts, side }: Pay
           <line x1={padding.left} y1={padding.top + plotH} x2={svgWidth - padding.right} y2={padding.top + plotH} stroke="var(--border)" strokeWidth="0.5" strokeDasharray="3 3" />
 
           {/* P&L line */}
-          <path d={pathD} fill="none" stroke="var(--amber)" strokeWidth="2" strokeLinecap="round" />
+          <path d={pathD} fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" />
 
           {/* Entry price line */}
           <line
@@ -100,17 +100,17 @@ export default function PayoffCurve({ market, entryPrice, contracts, side }: Pay
             y1={padding.top}
             x2={toX(entryPrice)}
             y2={padding.top + plotH}
-            stroke="var(--amber)"
+            stroke="var(--accent)"
             strokeWidth="1"
             strokeDasharray="4 3"
           />
 
           {/* Break-even dot */}
-          <circle cx={toX(entryPrice)} cy={zeroY} r="4" fill="var(--amber)" />
-          <circle cx={toX(entryPrice)} cy={zeroY} r="6" fill="none" stroke="var(--amber)" strokeWidth="1" opacity="0.4" />
+          <circle cx={toX(entryPrice)} cy={zeroY} r="4" fill="var(--accent)" />
+          <circle cx={toX(entryPrice)} cy={zeroY} r="6" fill="none" stroke="var(--accent)" strokeWidth="1" opacity="0.4" />
 
           {/* Labels */}
-          <text x={toX(entryPrice)} y={zeroY - 10} textAnchor="middle" fill="var(--amber)" fontSize="9" fontWeight="600">
+          <text x={toX(entryPrice)} y={zeroY - 10} textAnchor="middle" fill="var(--accent)" fontSize="9" fontWeight="600">
             ENTRY
           </text>
 

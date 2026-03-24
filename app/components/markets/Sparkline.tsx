@@ -28,8 +28,8 @@ export default function Sparkline({
     })
     .join(" ");
 
-  const color = positive ? "var(--green)" : "var(--red)";
-  const gradientId = `spark-${positive ? "up" : "down"}-${width}`;
+  const color = positive ? "var(--accent)" : "var(--red)";
+  const gradientId = `spark-${positive ? "up" : "down"}-${width}-${height}`;
 
   const firstX = padding;
   const lastX = padding + ((data.length - 1) / (data.length - 1)) * (width - padding * 2);
@@ -43,7 +43,7 @@ export default function Sparkline({
     >
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.12" />
+          <stop offset="0%" stopColor={color} stopOpacity="0.15" />
           <stop offset="100%" stopColor={color} stopOpacity="0.0" />
         </linearGradient>
       </defs>

@@ -3,67 +3,100 @@
 import { useMemo } from "react";
 import Link from "next/link";
 import { Market } from "@/app/lib/types";
-import { formatNumber } from "@/app/lib/format";
-import { TrendingUp, TrendingDown } from "lucide-react";
+import { formatCompact, daysUntil } from "@/app/lib/format";
+import { TrendingUp, TrendingDown, ArrowRight } from "lucide-react";
 import Sparkline from "./Sparkline";
 import { generateSparkline } from "@/app/data/sparkline";
+import { GlowingEffect } from "@/app/components/ui/glowing-effect";
 
 export default function FeaturedMarket({ market }: { market: Market }) {
   const isPositive = market.change24h >= 0;
   const sparkData = useMemo(() => generateSparkline(market, 48), [market.id]); // eslint-disable-line react-hooks/exhaustive-deps
-  const changePercent = market.previousClose
-    ? ((market.change24h / market.previousClose) * 100).toFixed(2)
-    : "0.00";
 
   return (
     <Link href={`/markets/${market.slug}`}>
-      <div className="border border-[var(--border)] rounded-xl bg-[var(--surface)] hover:border-[var(--amber)]/30 transition-all cursor-pointer group">
-        <div className="p-6">
-          <div className="text-xs text-[var(--amber)] font-semibold uppercase tracking-wider mb-3">
-            Featured Market
-          </div>
+      <div className="relative rounded-2xl p-[2px] group">
+        <GlowingEffect
+          spread={60}
+          glow={true}
+          disabled={false}
+          proximity={80}
+          inactiveZone={0.01}
+          borderWidth={2}
+          blur={3}
+        />
+        <div className="relative rounded-2xl glass-card overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-6">
 
-          <div className="flex items-start justify-between gap-8">
-            {/* Left side - info */}
-            <div className="flex-shrink-0">
-              <h2 className="text-xl font-bold mb-1 group-hover:text-[var(--amber)] transition-colors">
-                {market.name}
+            {/* Left: Info */}
+            <div className="p-6 md:p-8 flex flex-col">
+              {/* Badge */}
+              <div className="flex items-center gap-2.5 mb-6">
+                <span className="inline-flex items-center gap-1.5 rounded-full py-0.5 pl-2.5 pr-3 text-xs font-semibold text-white bg-[var(--accent)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
+                  Featured
+                </span>
+                <span className="text-xs text-[var(--muted)]">{market.asset}</span>
+              </div>
+
+              {/* Title */}
+              <h2 className="text-2xl lg:text-3xl font-bold tracking-tight leading-tight mb-2">
+                {market.event}
               </h2>
-              <div className="text-3xl font-bold font-mono tracking-tight mb-2">
-                {formatNumber(market.currentPrice, market.decimals)}
-                <span className="text-base text-[var(--muted)] font-normal ml-1">{market.unit}</span>
-              </div>
-              <div
-                className="flex items-center gap-1.5 text-sm font-medium mb-4"
-                style={{ color: isPositive ? "var(--green)" : "var(--red)" }}
-              >
-                {isPositive ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-                {isPositive ? "+" : ""}{changePercent}% today
-              </div>
-
-              <div className="space-y-1 text-sm">
-                <div className="flex items-center gap-4">
-                  <span className="text-[var(--muted)]">Market Price</span>
-                  <span className="font-mono">{formatNumber(market.currentPrice, market.decimals)} {market.unit}</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="text-[var(--muted)]">Settlement</span>
-                  <span className="font-mono">{market.settlementDate}</span>
-                </div>
-              </div>
-
-              <p className="text-xs text-[var(--muted)] mt-3 max-w-xs">
-                {market.description}. Linear payoff: profit = (V - P) x N per contract.
+              <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6 max-w-md">
+                {market.resolvesYesIf}
               </p>
+
+              {/* Big probability */}
+              <div className="mb-6">
+                <div className="text-5xl font-bold font-mono tracking-tighter chromatic-text leading-none">
+                  {market.probability}<span className="text-2xl">%</span>
+                </div>
+                <p className="text-xs text-[var(--muted)] mt-1.5 font-medium uppercase tracking-wider">Implied probability</p>
+              </div>
+
+              {/* Stat cards row */}
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                <StatCard label="Yes" value={`$${market.yesPrice.toFixed(2)}`} color="var(--green)" />
+                <StatCard label="No" value={`$${market.noPrice.toFixed(2)}`} color="var(--red)" />
+                <StatCard label="Volume" value={`$${formatCompact(market.volume24h)}`} />
+                <StatCard label="Settles in" value={`${daysUntil(market.settlementDate)} days`} />
+              </div>
+
+              {/* Bottom row */}
+              <div className="flex items-center justify-between mt-auto pt-4">
+                <div
+                  className="inline-flex items-center gap-1.5 rounded-full py-0.5 pl-2 pr-2.5 text-xs font-semibold"
+                  style={{
+                    color: isPositive ? "var(--green)" : "var(--red)",
+                    background: isPositive ? "var(--green-bg)" : "var(--red-bg)",
+                  }}
+                >
+                  {isPositive ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                  {isPositive ? "+" : ""}{market.change24h}% today
+                </div>
+                <span className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent)] group-hover:gap-2 transition-all">
+                  Trade <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
             </div>
 
-            {/* Right side - chart */}
-            <div className="flex-1 min-w-0 flex items-end justify-end">
-              <Sparkline data={sparkData} positive={isPositive} width={320} height={100} />
+            {/* Right: Chart */}
+            <div className="flex items-end p-3 md:p-5">
+              <Sparkline data={sparkData} positive={isPositive} width={600} height={280} />
             </div>
           </div>
         </div>
       </div>
     </Link>
+  );
+}
+
+function StatCard({ label, value, color }: { label: string; value: string; color?: string }) {
+  return (
+    <div className="rounded-xl bg-[var(--surface2)] border border-[var(--border)] p-3">
+      <p className="text-[10px] text-[var(--muted)] uppercase tracking-wider font-medium mb-1">{label}</p>
+      <p className="text-sm font-bold font-mono tabular-nums" style={color ? { color } : undefined}>{value}</p>
+    </div>
   );
 }

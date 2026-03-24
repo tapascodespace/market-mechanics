@@ -17,7 +17,7 @@ export default function Badge({ variant = "category", children, className }: Bad
           "bg-[var(--green)]/15 text-[var(--green)]": variant === "live",
           "bg-[var(--muted)]/15 text-[var(--muted)]": variant === "settled",
           "bg-[var(--red)]/15 text-[var(--red)]": variant === "halted",
-          "bg-[var(--amber)]/10 text-[var(--amber)]": variant === "category",
+          "bg-[var(--accent)]/10 text-[var(--accent)]": variant === "category",
         },
         className
       )}

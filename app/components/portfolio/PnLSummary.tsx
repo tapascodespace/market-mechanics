@@ -18,7 +18,7 @@ export default function PnLSummary() {
       label: "Total Equity",
       value: formatCurrency(Math.round(totalEquity)),
       icon: DollarSign,
-      color: "var(--amber)",
+      color: "var(--accent)",
     },
     {
       label: "Available Balance",

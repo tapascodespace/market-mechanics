@@ -15,6 +15,7 @@ import {
 } from "@/app/lib/payoff";
 import { formatCurrency, formatNumber } from "@/app/lib/format";
 import { Minus, Plus } from "lucide-react";
+import { ParticleButton } from "@/app/components/ui/particle-button";
 
 interface TradePanelProps {
   market: Market;
@@ -141,7 +142,7 @@ export default function TradePanel({
                 className={cn(
                   "text-xs px-2.5 py-1 rounded-md transition-colors cursor-pointer font-mono",
                   contracts === c
-                    ? "bg-[var(--amber)]/15 text-[var(--amber)] border border-[var(--amber)]/30"
+                    ? "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/30"
                     : "bg-[var(--surface2)] text-[var(--muted)] hover:text-[var(--text)] border border-transparent"
                 )}
               >
@@ -156,7 +157,7 @@ export default function TradePanel({
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => adjustPrice(-1)}
-              className="p-2 rounded-lg bg-[var(--surface2)] border border-[var(--border)] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors cursor-pointer shrink-0"
+              className="p-2 rounded-lg bg-[var(--surface2)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors cursor-pointer shrink-0"
             >
               <Minus className="w-4 h-4" />
             </button>
@@ -169,14 +170,14 @@ export default function TradePanel({
             />
             <button
               onClick={() => adjustPrice(1)}
-              className="p-2 rounded-lg bg-[var(--surface2)] border border-[var(--border)] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors cursor-pointer shrink-0"
+              className="p-2 rounded-lg bg-[var(--surface2)] border border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors cursor-pointer shrink-0"
             >
               <Plus className="w-4 h-4" />
             </button>
           </div>
           <button
             onClick={() => onPriceChange(market.currentPrice)}
-            className="text-xs text-[var(--amber)] mt-1.5 hover:underline cursor-pointer w-full text-center"
+            className="text-xs text-[var(--accent)] mt-1.5 hover:underline cursor-pointer w-full text-center"
           >
             Use market price ({formatNumber(market.currentPrice, market.decimals)})
           </button>
@@ -193,19 +194,17 @@ export default function TradePanel({
         </div>
 
         {/* CTA */}
-        <button
+        <ParticleButton
           onClick={handlePlaceOrder}
           disabled={!user || !!insufficientBalance || contracts < 1}
-          className={cn(
-            "w-full py-3.5 rounded-lg text-white font-bold text-base transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed",
-            side === "long"
-              ? "bg-[var(--green)] hover:brightness-110"
-              : "bg-[var(--red)] hover:brightness-110"
-          )}
+          particleColor={side === "long" ? "#2aad6e" : "#c0392b"}
+          variant={side === "long" ? "green" : "red"}
+          size="lg"
+          className="w-full py-3.5 font-bold text-base"
         >
           {side === "long" ? "Long" : "Short"} {contracts} @ {formatNumber(price, market.decimals)}{" "}
           {market.unit}
-        </button>
+        </ParticleButton>
 
         {insufficientBalance && (
           <p className="text-xs text-[var(--red)] text-center">Insufficient balance</p>
@@ -235,7 +234,7 @@ function SummaryRow({
         className={cn(
           "font-mono tabular-nums",
           bold && "font-medium",
-          highlight && "text-[var(--amber)]",
+          highlight && "text-[var(--accent)]",
           danger && "text-[var(--red)]"
         )}
       >

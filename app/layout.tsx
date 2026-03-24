@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import ThemeInit from "@/app/components/ui/ThemeInit";
 
-const baskerville = Libre_Baskerville({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
-  variable: "--font-baskerville",
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -20,8 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={baskerville.variable}>
-      <body style={{ fontFamily: "var(--font-baskerville), 'Baskerville', 'Georgia', serif" }}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+      <body style={{ fontFamily: "var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+        <ThemeInit />
         {children}
       </body>
     </html>

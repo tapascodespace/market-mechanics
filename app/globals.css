@@ -1,17 +1,67 @@
 @import "tailwindcss";
 
-:root {
-  --bg: #080808;
-  --surface: #0f0f0f;
-  --surface2: #141414;
-  --border: #1e1e1e;
-  --border2: #2a2a2a;
-  --text: #f0ede8;
-  --muted: #555555;
-  --faint: #333333;
-  --amber: #d4972a;
-  --green: #2aad6e;
-  --red: #c0392b;
+/* ── Light theme ── */
+:root, [data-theme="light"] {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --surface2: #f3f4f6;
+  --surface3: #e5e7eb;
+  --border: #e5e7eb;
+  --border2: #d1d5db;
+  --text: #111928;
+  --text-secondary: #4b5563;
+  --muted: #9ca3af;
+  --faint: #e5e7eb;
+
+  --accent: #6c5ce7;
+  --accent-secondary: #00b4d8;
+  --accent-tertiary: #a855f7;
+  --accent-glow: rgba(108, 92, 231, 0.10);
+  --accent-glow-strong: rgba(108, 92, 231, 0.20);
+
+  --green: #10b981;
+  --green-bg: rgba(16, 185, 129, 0.08);
+  --red: #ef4444;
+  --red-bg: rgba(239, 68, 68, 0.08);
+
+  --chromatic-gradient: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 50%, #a855f7 100%);
+
+  --shadow-xs: 0px 1px 2px rgba(16,24,40,0.05);
+  --shadow-sm: 0px 1px 3px rgba(16,24,40,0.1), 0px 1px 2px rgba(16,24,40,0.06);
+  --shadow-md: 0px 4px 8px -2px rgba(16,24,40,0.1), 0px 2px 4px -2px rgba(16,24,40,0.06);
+  --shadow-lg: 0px 12px 16px -4px rgba(16,24,40,0.08), 0px 4px 6px -2px rgba(16,24,40,0.03);
+}
+
+/* ── Dark theme ── */
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface2: rgba(255, 255, 255, 0.05);
+  --surface3: rgba(255, 255, 255, 0.07);
+  --border: #30363d;
+  --border2: #484f58;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --muted: #6e7681;
+  --faint: #30363d;
+
+  --accent: #8b7cf7;
+  --accent-secondary: #2dd4a8;
+  --accent-tertiary: #c084fc;
+  --accent-glow: rgba(139, 124, 247, 0.12);
+  --accent-glow-strong: rgba(139, 124, 247, 0.25);
+
+  --green: #2dd4a8;
+  --green-bg: rgba(45, 212, 168, 0.12);
+  --red: #f97583;
+  --red-bg: rgba(249, 117, 131, 0.12);
+
+  --chromatic-gradient: linear-gradient(135deg, #8b7cf7 0%, #2dd4a8 50%, #c084fc 100%);
+
+  --shadow-xs: 0px 1px 2px rgba(0,0,0,0.3);
+  --shadow-sm: 0px 1px 3px rgba(0,0,0,0.4), 0px 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0px 4px 8px -2px rgba(0,0,0,0.4), 0px 2px 4px -2px rgba(0,0,0,0.3);
+  --shadow-lg: 0px 12px 16px -4px rgba(0,0,0,0.4), 0px 4px 6px -2px rgba(0,0,0,0.2);
 }
 
 *, *::before, *::after {
@@ -30,43 +80,42 @@ body {
   color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+
+::selection {
+  background: var(--accent-glow-strong);
+  color: var(--text);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* ── Chromatic gradient text ── */
+.chromatic-text {
+  background: var(--chromatic-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-::-webkit-scrollbar-track {
+
+/* ── Glass card (TailAdmin-inspired) ── */
+.glass-card {
   background: var(--surface);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--border2);
-  border-radius: 3px;
-}
-
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
+.glass-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+[data-theme="dark"] .glass-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }

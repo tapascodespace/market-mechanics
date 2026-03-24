@@ -15,15 +15,15 @@ export default function Topbar() {
 
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2 bg-[var(--surface2)] px-3 py-1.5 rounded-lg border border-[var(--border)]">
-          <Wallet className="w-4 h-4 text-[var(--amber)]" />
+          <Wallet className="w-4 h-4 text-[var(--accent)]" />
           <span className="text-sm font-medium">
             {user ? formatCurrency(user.balance) : "$0"}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-[var(--amber)]/20 flex items-center justify-center">
-            <User className="w-4 h-4 text-[var(--amber)]" />
+          <div className="w-8 h-8 rounded-full bg-[var(--accent)]/20 flex items-center justify-center">
+            <User className="w-4 h-4 text-[var(--accent)]" />
           </div>
           <span className="hidden sm:block text-sm text-[var(--muted)]">
             {user?.name || "Guest"}

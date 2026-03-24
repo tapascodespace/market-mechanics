@@ -11,7 +11,7 @@ export default function Card({
   return (
     <div
       className={cn(
-        "bg-[var(--surface)] border border-[var(--border)] rounded-xl",
+        "glass-card",
         className
       )}
       {...props}

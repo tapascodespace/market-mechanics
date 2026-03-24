@@ -18,7 +18,7 @@ export default function Sidebar() {
   return (
     <aside className="w-16 lg:w-56 h-screen fixed left-0 top-0 bg-[var(--surface)] border-r border-[var(--border)] flex flex-col z-40">
       <div className="p-4 lg:px-5 flex items-center gap-2 border-b border-[var(--border)] h-14">
-        <LineChart className="w-6 h-6 text-[var(--amber)] shrink-0" />
+        <LineChart className="w-6 h-6 text-[var(--accent)] shrink-0" />
         <span className="hidden lg:block font-bold text-lg tracking-tight">REESHAW</span>
       </div>
 
@@ -32,7 +32,7 @@ export default function Sidebar() {
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-[var(--amber)]/10 text-[var(--amber)]"
+                  ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                   : "text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--surface2)]"
               )}
             >

@@ -3,10 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/app/stores/auth-store";
-import Card from "@/app/components/ui/Card";
 import Input from "@/app/components/ui/Input";
-import Button from "@/app/components/ui/Button";
-import { LineChart } from "lucide-react";
+import { ParticleButton } from "@/app/components/ui/particle-button";
 import Link from "next/link";
 
 export default function RegisterPage() {
@@ -29,20 +27,27 @@ export default function RegisterPage() {
   };
 
   return (
-    <Card className="w-full max-w-sm p-6">
-      <div className="flex items-center gap-2 justify-center mb-6">
-        <LineChart className="w-7 h-7 text-[var(--amber)]" />
-        <span className="font-bold text-xl tracking-tight">REESHAW</span>
+    <div className="w-full max-w-sm">
+      {/* Logo */}
+      <div className="flex items-center gap-2 mb-10">
+        <svg viewBox="0 0 64 64" className="w-8 h-8">
+          <path d="M12 18 L20 4 L28 18 Z" fill="var(--text)" />
+          <path d="M36 18 L44 4 L52 18 Z" fill="var(--text)" />
+          <ellipse cx="32" cy="36" rx="22" ry="24" fill="var(--text)" />
+          <circle cx="24" cy="32" r="3.5" fill="var(--bg)" />
+          <circle cx="40" cy="32" r="3.5" fill="var(--bg)" />
+        </svg>
+        <span className="text-lg font-bold">Reeshaw</span>
       </div>
 
-      <h2 className="text-lg font-semibold text-center mb-1">Create account</h2>
-      <p className="text-sm text-[var(--muted)] text-center mb-6">
+      <h1 className="text-3xl font-bold tracking-tight mb-2">Create account</h1>
+      <p className="text-[var(--text-secondary)] text-sm mb-8">
         Start with $100,000 paper balance
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label className="text-xs text-[var(--muted)] mb-1 block">Name</label>
+          <label className="text-sm font-medium text-[var(--text)] mb-2 block">Name</label>
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -51,7 +56,7 @@ export default function RegisterPage() {
           />
         </div>
         <div>
-          <label className="text-xs text-[var(--muted)] mb-1 block">Email</label>
+          <label className="text-sm font-medium text-[var(--text)] mb-2 block">Email</label>
           <Input
             type="email"
             value={email}
@@ -61,7 +66,7 @@ export default function RegisterPage() {
           />
         </div>
         <div>
-          <label className="text-xs text-[var(--muted)] mb-1 block">Password</label>
+          <label className="text-sm font-medium text-[var(--text)] mb-2 block">Password</label>
           <Input
             type="password"
             value={password}
@@ -73,20 +78,20 @@ export default function RegisterPage() {
         </div>
 
         {error && (
-          <p className="text-xs text-[var(--red)] text-center">{error}</p>
+          <p className="text-sm text-[var(--red)]">{error}</p>
         )}
 
-        <Button type="submit" className="w-full" size="lg">
+        <ParticleButton type="submit" className="w-full" size="lg">
           Create Account
-        </Button>
+        </ParticleButton>
       </form>
 
-      <p className="text-sm text-[var(--muted)] text-center mt-4">
+      <p className="text-sm text-[var(--text-secondary)] mt-6">
         Already have an account?{" "}
-        <Link href="/login" className="text-[var(--amber)] hover:underline">
+        <Link href="/login" className="text-[var(--text)] font-semibold hover:underline">
           Sign in
         </Link>
       </p>
-    </Card>
+    </div>
   );
 }
